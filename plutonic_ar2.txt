@@ -1,0 +1,92 @@
+AddCSLuaFile()
+
+SWEP.Base = "plutonic_base"
+
+SWEP.PrintName = "Pulse-Rifle"
+SWEP.Category = "Plutonic: Half-Life 2"
+SWEP.UseHands = true
+SWEP.Spawnable = true
+SWEP.AdminOnly = false
+SWEP.IconOverride = "materials/entities/weapon_ar2.png"
+
+SWEP.HoldType = "ar2"
+
+SWEP.WorldModel = Model("models/weapons/w_irifle.mdl")
+SWEP.ViewModel = Model("models/weapons/c_irifle.mdl")
+SWEP.ViewModelFOV = 55
+SWEP.ViewModelOffset = Vector(0, 0, 0)
+
+SWEP.BarrelLength = 8
+SWEP.Slot = 2
+SWEP.SlotPos = 1
+
+SWEP.CSMuzzleFlashes = false
+
+SWEP.ReloadSound = Sound("Weapon_AR2.NPC_Reload")
+SWEP.EmptySound = Sound("Weapon_AR2.Empty")
+
+SWEP.Primary.Sound = Sound("Weapon_AR2.NPC_Single")
+
+SWEP.Primary.Recoil = 0.4
+SWEP.Primary.Damage = 12
+SWEP.Primary.NumShots = 1
+SWEP.Primary.Cone = 0.02
+SWEP.Primary.Delay = Plutonic.FireRate.RPM(600)
+SWEP.Primary.Tracer = "AR2Tracer"
+
+SWEP.Primary.Shell = "ShellEject"
+SWEP.Primary.ShellScale = 1.5
+SWEP.Primary.ShellAttachment = 2
+
+SWEP.Primary.RecoilUp = 1.9
+SWEP.Primary.RecoilDown = 0.4
+SWEP.Primary.RecoilSide = 1.56
+
+SWEP.Primary.StartFalloff = 1200
+SWEP.Primary.FallOff = 1800
+
+SWEP.Primary.Ammo = "ar2"
+SWEP.Primary.Automatic = true
+SWEP.Primary.ClipSize = 30
+SWEP.Primary.DefaultClip = 30
+
+SWEP.Secondary.Ammo = "none"
+SWEP.Secondary.Automatic = false
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
+
+SWEP.Spread = {}
+SWEP.Spread.Min = 0
+SWEP.Spread.Max = 0.1
+SWEP.Spread.IronsightsMod = 0.75
+SWEP.Spread.CrouchMod = 0.75
+SWEP.Spread.AirMod = 1.2
+SWEP.Spread.RecoilMod = 0.03
+SWEP.Spread.VelocityMod = 0.2
+
+SWEP.IronsightsPos = Vector(-5.83, -5, 1.2)
+SWEP.IronsightsAng = Angle(0, 0, 0)
+SWEP.IronsightsFOV = 0.75
+SWEP.IronsightsSensitivity = 0.75
+SWEP.IronsightsCrosshair = false
+SWEP.IronsightsRecoilVisualMultiplier = 1
+
+SWEP.BlowbackPos = Vector(0, -4, -0.1)
+SWEP.BlowbackAngle = Angle(0, 0, 0)
+
+SWEP.CenteredPos = Vector(-5.5, -4, -1.65)
+SWEP.CenteredAng = Angle(0.472, 0.017, 0)
+
+SWEP.LoweredPos = Vector(2, -5, 0)
+SWEP.LoweredAng = Angle(-10, 25, 0)
+
+SWEP.MuzzleFlashColor = Color(200, 255, 255)
+
+hook.Add("LongswordWeaponReload", "Weapon.AR2.Reload", function(ply, weapon, time)
+    if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_ar2" ) then
+        ply:SetLocalVelocity(Vector(0, 0, 0))
+        ply:ForceSequence("reload_ar2", nil, time)
+    end
+end)
+
+SWEP.NoReloadEvent = true
