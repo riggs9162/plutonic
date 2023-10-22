@@ -86,14 +86,6 @@ hook.Add("LongswordWeaponCanReload", "Weapon.AR2.CanReload", function(ply, weapo
     return ply:IsOnGround() // for the animations
 end)
 
-// if table, arg#1 is standing anim, arg#2 is crouching anim
-local animationTranslator = {
-    ["overwatch"] = {"reload", "reload_low"},
-    ["metrocop"] = "reload_smg1",
-    ["citizen_female"] = "reload_ar2",
-    ["citizen_male"] = "reload_ar2",
-}
-
 // add support for other frameworks
 local function getModelClass(model)
     if ( ix ) then
@@ -108,6 +100,14 @@ local function getModelClass(model)
 
     return "citizen_male"
 end
+
+// if table, arg#1 is standing anim, arg#2 is crouching anim
+local animationTranslator = {
+    ["overwatch"] = {"reload", "reload_low"},
+    ["metrocop"] = "reload_smg1",
+    ["citizen_female"] = "reload_ar2",
+    ["citizen_male"] = "reload_ar2",
+}
 
 hook.Add("LongswordWeaponReload", "Weaon.AR2.Reload", function(ply, weapon, time)
     if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_ar2" ) then
