@@ -9,6 +9,10 @@ function SWEP:CanReload()
 		return
 	end
 
+	if hook.Run("LongswordWeaponCanReload", self.Owner, self) == false then
+		return
+	end
+
 	if (self:GetNextPrimaryFire() > CurTime()) then
 		return
 	end
