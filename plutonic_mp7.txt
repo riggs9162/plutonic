@@ -79,6 +79,10 @@ SWEP.CenteredAng = Angle(0.472, 0.017, 0)
 SWEP.LoweredPos = Vector(2, -5, -10)
 SWEP.LoweredAng = Angle(-5, 40, -35)
 
+hook.Add("LongswordWeaponCanReload", "Weapon.MP7.CanReload", function(ply, weapon, time)
+    return ply:IsOnGround() // for the animations
+end)
+
 hook.Add("LongswordWeaponReload", "Weaon.MP7.Reload", function(ply, weapon, time)
     if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_mp7" ) then
         ply:SetLocalVelocity(Vector(0, 0, 0))
