@@ -83,11 +83,38 @@ hook.Add("LongswordWeaponCanReload", "Weapon.MP7.CanReload", function(ply, weapo
     return ply:IsOnGround() // for the animations
 end)
 
+// add support for other frameworks
+local function getModelClass(model)
+    if ( ix ) then
+        return ix.anim.GetModelClass(model)
+    elseif ( nut ) then
+        return nut.anim.getModelClass(model)
+    elseif ( impulse ) then
+        return impulse.GetModelClass(model)
+    elseif ( Clockwork ) then
+        return Clockwork.animation:GetModelClass(model)
+    end
+
+    return "citizen_male"
+end
+
 hook.Add("LongswordWeaponReload", "Weaon.MP7.Reload", function(ply, weapon, time)
     if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_mp7" ) then
         ply:SetLocalVelocity(Vector(0, 0, 0))
-        ply:ForceSequence("reload_smg1", nil, time)
+
+        local data = animationTranslator[getModelClass(ply:GetModel())]
+        if ( data ) then
+            local animation = istable(data) and ( ply:Crouching() and data[2] or data[1] ) or data
+            if ( ply.ForceSequence ) then // helix, impulse
+                ply:ForceSequence(animation, nil, time)
+            elseif ( ply.forceSequence ) then // nutscript
+                ply:forceSequence(animation, nil, time)
+            elseif ( ply.SetForcedAnimation ) then // clockwork
+                ply:SetForcedAnimation(animation, time) // not sure if thats how it works for clockwork
+            end
+        end
     end
 end)
 
+// disables the Player:DoReloadEvent() function to hide the gesture of reloading
 SWEP.NoReloadEvent = true
