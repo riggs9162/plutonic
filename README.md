@@ -11,8 +11,12 @@ this is my fixed version of plutonic
 
 * Functionality for custom sequence animations
 ```lua
+hook.Add("LongswordWeaponCanReload", "Weapon.MP7.CanReload", function(ply, weapon, time)
+    return ply:IsOnGround() // for the animations
+end)
+
 hook.Add("LongswordWeaponReload", "Weaon.MP7.Reload", function(ply, weapon, time)
-    if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_mp7" and ply.ForceSequence ) then
+    if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_mp7" ) then
         ply:SetLocalVelocity(Vector(0, 0, 0))
         ply:ForceSequence("reload_smg1", nil, time)
     end
