@@ -3,7 +3,12 @@
 this is my fixed version of plutonic
 
 ## new features
-* cool muzzleflash effect
+* empty sound functionality
+* cool muzzleflash effect (somewhat accurate sometimes)
+
+![image](https://github.com/riggs9162/plutonic/assets/49407096/9bbe6686-6288-4b1e-b94b-f668ebd2d9f3)
+![image](https://github.com/riggs9162/plutonic/assets/49407096/326a41ce-c35c-4735-b688-736c022a664d)
+
 * Functionality for custom sequence animations
 ```lua
 hook.Add("LongswordWeaponReload", "Weaon.MP7.Reload", function(ply, weapon, time)
