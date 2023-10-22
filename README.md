@@ -11,17 +11,9 @@ this is my fixed version of plutonic
 
 * Functionality for custom sequence animations
 ```lua
-hook.Add("LongswordWeaponCanReload", "Weapon.AR2.CanReload", function(ply, weapon, time)
+hook.Add("LongswordWeaponCanReload", "Weapon.MP7.CanReload", function(ply, weapon, time)
     return ply:IsOnGround() // for the animations
 end)
-
-// if table, arg#1 is standing anim, arg#2 is crouching anim
-local animationTranslator = {
-    ["overwatch"] = {"reload", "reload_low"},
-    ["metrocop"] = "reload_smg1",
-    ["citizen_female"] = "reload_ar2",
-    ["citizen_male"] = "reload_ar2",
-}
 
 // add support for other frameworks
 local function getModelClass(model)
@@ -38,8 +30,8 @@ local function getModelClass(model)
     return "citizen_male"
 end
 
-hook.Add("LongswordWeaponReload", "Weaon.AR2.Reload", function(ply, weapon, time)
-    if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_ar2" ) then
+hook.Add("LongswordWeaponReload", "Weaon.MP7.Reload", function(ply, weapon, time)
+    if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_mp7" ) then
         ply:SetLocalVelocity(Vector(0, 0, 0))
 
         local data = animationTranslator[getModelClass(ply:GetModel())]
