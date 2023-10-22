@@ -30,6 +30,14 @@ local function getModelClass(model)
     return "citizen_male"
 end
 
+// if table, arg#1 is standing anim, arg#2 is crouching anim
+local animationTranslator = {
+    ["overwatch"] = {"reload", "reload_low"},
+    ["metrocop"] = "reload_smg1",
+    ["citizen_female"] = "reload_smg1",
+    ["citizen_male"] = "reload_smg1",
+}
+
 hook.Add("LongswordWeaponReload", "Weaon.MP7.Reload", function(ply, weapon, time)
     if ( SERVER and ply:IsOnGround() and weapon:GetClass() == "plutonic_mp7" ) then
         ply:SetLocalVelocity(Vector(0, 0, 0))
